@@ -86,29 +86,34 @@ class _SidebarState extends State<Sidebar> {
                                 });
                               },
                             )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(),
-                                Image.asset(
-                                  'assets/component/pos.png',
-                                  fit: BoxFit.fill,
-                                  width: 50,
-                                ),
-                                IconButton(
-                                  icon: Icon(
-                                    isCollapsed
-                                        ? Icons.list_rounded
-                                        : Icons.list_rounded,
-                                    color: Colors.blue,
+                          : SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(width: 55),
+                                  Image.asset(
+                                    'assets/component/pos.png',
+                                    fit: BoxFit.fill,
+                                    width: 100,
                                   ),
-                                  onPressed: () {
-                                    setState(() {
-                                      isCollapsed = !isCollapsed;
-                                    });
-                                  },
-                                ),
-                              ],
+                                  SizedBox(width: 50),
+                                  IconButton(
+                                    icon: Icon(
+                                      isCollapsed
+                                          ? Icons.list_rounded
+                                          : Icons.list_rounded,
+                                      color: Colors.blue,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        isCollapsed = !isCollapsed;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                       const SizedBox(height: 10),
                       ...List.generate(menuItems.length, (index) {
@@ -140,10 +145,7 @@ class _SidebarState extends State<Sidebar> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: contentWidgets[selectedIndex],
-                ),
+                child: contentWidgets[selectedIndex],
               ),
             ),
           ],
@@ -177,16 +179,17 @@ class _SidebarState extends State<Sidebar> {
                   : const Color.fromARGB(255, 72, 168, 247),
             ),
             if (!isCollapsed) ...[
-              const SizedBox(width: 12),
+              // const SizedBox(width: 12),
               // ⬇️ Fade-in animation when expanding
               Expanded(
+                flex: 2,
                 child: AnimatedOpacity(
                   opacity: isCollapsed ? 0.0 : 1.0,
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
                   child: Text(
                     title,
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.lato(
                       color: isSelected ? Colors.white : Colors.black,
                       fontSize: 15,
                     ),
@@ -196,6 +199,7 @@ class _SidebarState extends State<Sidebar> {
                 ),
               ),
             ],
+            SizedBox(),
           ],
         ),
       ),
